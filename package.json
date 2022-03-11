@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start:dev-server": "npx nodemon server.js",
-    "start": "react-scripts start",
+    "start": "react-scripts start && node server.js",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
