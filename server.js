@@ -1,10 +1,10 @@
-const path = require("path");
-const express = require("express");
-const ACTIONS = require("./src/socket/actions");
+const path = require('path');
+const express = require('express');
+const ACTIONS = require('./src/socket/actions');
 const app = express();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
-const {version, validate} = require("uuid");
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+const {version, validate} = require('uuid');
 
 const PORT = process.env.PORT || 3001;
 
@@ -16,7 +16,7 @@ const shareRoomsInfo = () => {
   })
 };
 
-io.on("connection", socket => {
+io.on('connection', socket => {
   shareRoomsInfo();
 
   socket.on(ACTIONS.JOIN, config => {
@@ -24,7 +24,7 @@ io.on("connection", socket => {
     const {rooms: joinedRooms} = socket;
 
     if (Array.from(joinedRooms).includes(roomID)) {
-      return console.warn("Already joined to" + roomID);
+      return console.warn('Already joined to' + roomID);
     }
 
     const clients = Array.from(io.sockets.adapter.rooms.get(roomID) || []);
@@ -68,7 +68,7 @@ io.on("connection", socket => {
   }
 
   socket.on(ACTIONS.LEAVE, leaveRoom);
-  socket.on("disconnecting", leaveRoom);
+  socket.on('disconnecting', leaveRoom);
 
   socket.on(ACTIONS.RELAY_SDP, ({peerID, sessionDescription}) => {
     io.to(peerID).emit(ACTIONS.SESSION_DESCRIPTION, {
@@ -83,8 +83,16 @@ io.on("connection", socket => {
       iceCandidate,
     })
   });
-})
+});
+
+const publicPath = path.join(__dirname, 'build');
+
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
 
 server.listen(PORT, () => {
-  console.log("Server started");
+  console.log('Server started!');
 });
