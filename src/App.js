@@ -6,11 +6,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/webrtc-chat" element={<Main/>} />
+        <Route exact path="/" element={<Main/>} />
         <Route exact path="/room/:id" element={<Room/>} />
         <Route
           path="*"
-          element={<Navigate to="/webrtc-chat" />}
+          element={<Navigate to="/" />}
         />
       </Routes>
     </BrowserRouter>
