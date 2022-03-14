@@ -1,10 +1,10 @@
-import {useCallback, useEffect, useRef} from "react";
-import useStateWithCallback from "./useStateWithCallback";
-import freeice from "freeice";
-import socket from "../socket";
-import ACTIONS from "../socket/actions";
+import {useCallback, useEffect, useRef} from 'react';
+import useStateWithCallback from './useStateWithCallback';
+import freeice from 'freeice';
+import socket from '../socket';
+import ACTIONS from '../socket/actions';
 
-export const LOCAL_VIDEO = "LOCAL_VIDEO";
+export const LOCAL_VIDEO = 'LOCAL_VIDEO';
 
 const useWebRTC = roomID => {
   const [clients, setClients] = useStateWithCallback([]);
@@ -24,7 +24,7 @@ const useWebRTC = roomID => {
   useEffect(() => {
     const handleNewPeer = async ({peerID, createOffer}) => {
       if (peerID in peerConnections.current) {
-        return console.warn("Already connected" + peerID);
+        return console.warn('Already connected' + peerID);
       }
 
       peerConnections.current[peerID] = new RTCPeerConnection({
@@ -75,7 +75,7 @@ const useWebRTC = roomID => {
         new RTCSessionDescription(remoteDescription)
       );
 
-      if (remoteDescription.type === "offer") {
+      if (remoteDescription.type === 'offer') {
         const answer = await peerConnections.current[peerID].createAnswer();
         await peerConnections.current[peerID].setLocalDescription(answer);
         socket.emit(ACTIONS.RELAY_SDP, {
