@@ -1,6 +1,7 @@
 import {useState, useEffect, useRef} from 'react';
 import {useNavigate} from 'react-router';
 import {v4} from 'uuid';
+import { List, Button, Row, Col, Typography, Layout, Card } from 'antd';
 import socket from '../../socket';
 import ACTIONS from '../../socket/actions';
 
@@ -12,6 +13,7 @@ const Main = () => {
   useEffect(() => {
     socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
       if (rootNode.current) {
+        console.log(rooms)
         setRooms(rooms);
       }
     })
@@ -19,18 +21,29 @@ const Main = () => {
 
   return (
     <div ref={rootNode}>
-      <h1>Available Rooms</h1>
-
-      <ul>
-        {rooms.map(roomID => (
-          <li key={roomID}>
-            {roomID}
-            <button onClick={() => navigate(`/room/${roomID}`)}>JOIN ROOM</button>
-          </li>
-        ))}
-      </ul>
-
-      <button onClick={() => navigate(`/room/${v4()}`)}>Create New Room</button>
+      <Layout style={{ height: '100vh', overflow: 'auto', background: '#434343' }}>
+        <Row>
+          <Col span={12} offset={6}>
+            <Card
+              style={{marginTop: 110}}
+              title='Available Rooms'
+              extra={<Button onClick={() => navigate(`/room/${v4()}`)}>NEW ROOM</Button>}
+            >
+              <List
+                itemLayout='horizontal'
+                dataSource={rooms}
+                renderItem={roomID => (
+                  <List.Item
+                    actions={[<Button type='text' onClick={() => navigate(`/room/${roomID}`)}>JOIN</Button>]}
+                  >
+                    <Typography.Text>{roomID}</Typography.Text>
+                  </List.Item>
+                )}
+              />
+            </Card>
+          </Col>
+        </Row>
+      </Layout>
     </div>
   );
 };

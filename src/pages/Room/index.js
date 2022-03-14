@@ -1,5 +1,6 @@
 import {useParams} from 'react-router';
 import useWebRTC, {LOCAL_VIDEO} from '../../hooks/useWebRTC';
+import {Layout} from 'antd';
 
 const layout = (clientsNumber = 1) => {
   const pairs = Array.from({length: clientsNumber})
@@ -36,15 +37,15 @@ const Room = () => {
   const videoLayout = layout(clients.length);
 
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-      height: '100vh',
-    }}>
-      {clients.map((clientID, index) => {
-        return (
+    <Layout style={{ height: '100vh', overflow: 'auto', background: '#434343' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        height: '100vh',
+      }}>
+        {clients.map((clientID, index) => (
           <div key={clientID} style={videoLayout[index]} id={clientID}>
             <video
               width='100%'
@@ -57,9 +58,9 @@ const Room = () => {
               muted={clientID === LOCAL_VIDEO}
             />
           </div>
-        );
-      })}
-    </div>
+        ))}
+      </div>
+    </Layout>
   );
 };
 
