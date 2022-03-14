@@ -1,5 +1,5 @@
-import {useParams} from "react-router";
-import useWebRTC, {LOCAL_VIDEO} from "../../hooks/useWebRTC";
+import {useParams} from 'react-router';
+import useWebRTC, {LOCAL_VIDEO} from '../../hooks/useWebRTC';
 
 const layout = (clientsNumber = 1) => {
   const pairs = Array.from({length: clientsNumber})

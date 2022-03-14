@@ -1,8 +1,8 @@
-import {useState, useEffect, useRef} from "react";
-import {useNavigate} from "react-router";
+import {useState, useEffect, useRef} from 'react';
+import {useNavigate} from 'react-router';
 import {v4} from 'uuid';
-import socket from "../../socket";
-import ACTIONS from "../../socket/actions";
+import socket from '../../socket';
+import ACTIONS from '../../socket/actions';
 
 const Main = () => {
   const navigate = useNavigate();

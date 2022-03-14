@@ -19,9 +19,8 @@
   },
   "scripts": {
     "start:dev-server": "npx nodemon server.js",
-    "start": "react-scripts start && node server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
