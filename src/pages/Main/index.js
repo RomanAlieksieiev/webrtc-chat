@@ -23,7 +23,7 @@ const Main = () => {
     <div ref={rootNode}>
       <Layout style={{ height: '100vh', overflow: 'auto', background: '#434343' }}>
         <Row>
-          <Col span={12} offset={6}>
+          <Col span={22} offset={1} lg={{ span: 12, offset: 6 }}>
             <Card
               style={{marginTop: 110}}
               title='Available Rooms'
@@ -36,7 +36,12 @@ const Main = () => {
                   <List.Item
                     actions={[<Button type='text' onClick={() => navigate(`/room/${roomID}`)}>JOIN</Button>]}
                   >
-                    <Typography.Text>{roomID}</Typography.Text>
+                    <Typography.Text style={{
+                      maxWidth: '70%',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden'
+                    }}>{roomID}</Typography.Text>
                   </List.Item>
                 )}
               />
