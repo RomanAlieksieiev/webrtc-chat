@@ -13,7 +13,6 @@ const Main = () => {
   useEffect(() => {
     socket.on(ACTIONS.SHARE_ROOMS, ({rooms = []} = {}) => {
       if (rootNode.current) {
-        console.log(rooms)
         setRooms(rooms);
       }
     })

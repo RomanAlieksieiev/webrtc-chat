@@ -37,7 +37,11 @@ const Room = () => {
   const videoLayout = layout(clients.length);
 
   return (
-    <Layout style={{ height: '100vh', overflow: 'auto', background: '#434343' }}>
+    <Layout style={{
+      height: '100vh',
+      overflow: 'auto',
+      background: '#434343'
+    }}>
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -50,9 +54,7 @@ const Room = () => {
             <video
               width='100%'
               height='100%'
-              ref={instance => {
-                provideMediaRef(clientID, instance);
-              }}
+              ref={instance => provideMediaRef(clientID, instance)}
               autoPlay
               playsInline
               muted={clientID === LOCAL_VIDEO}
