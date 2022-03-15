@@ -70,6 +70,7 @@ io.on('connection', socket => {
   socket.on(ACTIONS.LEAVE, leaveRoom);
   socket.on('disconnecting', leaveRoom);
 
+  //new session
   socket.on(ACTIONS.RELAY_SDP, ({peerID, sessionDescription}) => {
     io.to(peerID).emit(ACTIONS.SESSION_DESCRIPTION, {
       peerID: socket.id,
@@ -77,6 +78,7 @@ io.on('connection', socket => {
     })
   });
 
+  //new candidate
   socket.on(ACTIONS.RELAY_ICE, ({peerID, iceCandidate}) => {
     io.to(peerID).emit(ACTIONS.ICE_CANDIDATE, {
       peerID: socket.id,
